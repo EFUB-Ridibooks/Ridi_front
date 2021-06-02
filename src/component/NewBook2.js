@@ -13,7 +13,7 @@ const Row = styled.div`
     display:flex;
     flex-direction: row;
     justify-content: center;
-    margin-right: 800px;
+    margin-right: 700px;
 `
 const Row2 = styled.div`
     display:flex;
