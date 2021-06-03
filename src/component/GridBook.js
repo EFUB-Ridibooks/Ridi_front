@@ -1,6 +1,9 @@
 import styled from "styled-components"
 import SmallBook from "./SmallBook"
 import image2 from "../assets/image2.png"
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 const Wrapper = styled.div`
 
     height:403px;
@@ -29,6 +32,20 @@ const Column = styled.div`
 
 function GridBook({ title }) {
 
+    const [data, setData] = useState();
+    useEffect(async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/books/hot`);
+            setData(response.data);
+            console.log(response);
+
+        } catch (e) {
+            console.log(e)
+
+        }
+    }, []
+    )
+
     return (
         <Wrapper>
             <Row>
@@ -37,19 +54,28 @@ function GridBook({ title }) {
 
             <Row2>
                 <Column>
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={1} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={2} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={3} author={"앤디위어"} />
+                    {data?.map((book, i) => {
+                        if (i < 3)
+                            return (<SmallBook src={book.photo} i={i + 1} title={book.name} author={book.author.name} />
+                            );
+                    }
+                    )}
                 </Column>
                 <Column>
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={4} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={5} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={6} author={"앤디위어"} />
+                    {data?.map((book, i) => {
+                        if (i < 6 && i > 2)
+                            return (<SmallBook src={book.photo} i={i + 1} title={book.name} author={book.author.name} />
+                            );
+                    }
+                    )}
                 </Column>
                 <Column>
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={7} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={8} author={"앤디위어"} />
-                    <SmallBook src={image2} title={"프로젝트 헤일메리"} i={9} author={"앤디위어"} />
+                    {data?.map((book, i) => {
+                        if (i < 9 && i > 5)
+                            return (<SmallBook src={book.photo} i={i + 1} title={book.name} author={book.author.name} />
+                            );
+                    }
+                    )}
                 </Column>
             </Row2>
         </Wrapper>

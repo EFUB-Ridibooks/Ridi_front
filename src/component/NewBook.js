@@ -1,7 +1,9 @@
 import styled from "styled-components"
 import BigBook from "./BigBook"
 import image1 from "../assets/image1.png"
-
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 const Wrapper = styled.div`
     background:  rgba(23, 32, 45, 1);
     height:403px;
@@ -35,6 +37,19 @@ const Circle = styled.button`
 `
 
 function NewBook() {
+    const [data, setData] = useState();
+    useEffect(async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/books/new`);
+            setData(response.data);
+            console.log(response);
+
+        } catch (e) {
+            console.log(e)
+
+        }
+    }, []
+    )
     return (
         <div>
             <Wrapper>
@@ -43,12 +58,13 @@ function NewBook() {
                 </Row>
                 <Row2>
                     <Circle> {"<"}</Circle>
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
-                    <BigBook src={image1} color={"white"} title={"죄의 궤적"} author={"오쿠다 하데오"} />
+
+                    {data?.map((book, i) => {
+                        if (i < 6)
+                            return (<BigBook src={book.photo} color={"white"} title={book.name} author={book.author.name} />
+                            );
+                    }
+                    )}
                     <Circle> {">"}</Circle>
                 </Row2>
 

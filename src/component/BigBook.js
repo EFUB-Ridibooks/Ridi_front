@@ -33,10 +33,12 @@ const Author = styled.div`
 const Star = styled.div`
     color:orange;
     height:10px;
+    font-size: 8px;
 `
 const GrayStar = styled.div`
     color:lightgray;
     height:10px;
+    font-size: 8px;
 `
 const Row = styled.div`
     display:flex;

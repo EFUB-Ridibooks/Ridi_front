@@ -86,7 +86,7 @@ function SmallBook({ src, title, author, score, i }) {
                 </Row>
 
             </Wrapper>
-            <Line />
+
 
 
         </div >);
